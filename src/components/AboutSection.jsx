@@ -32,7 +32,7 @@ export const AboutSection = () => {
                             Get In Touch
                         </motion.a>
                         <motion.a
-                            href="#contact"
+                            href="../../public/CV_wagner_william.pdf"
                             className="px-6 py-2 rounded-full border border-primary text-primary hover::bg-primary/10 transition-colors duration-300 "
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
