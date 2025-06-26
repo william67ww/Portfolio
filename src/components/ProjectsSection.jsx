@@ -8,7 +8,7 @@ const projects = [
         description: "A beautiful Pokemon Game using C# & Unity Technologies",
         image: "/projects/pokemon.avif",
         tags: ["C#", "Unity", "Game Development"],
-        demoUrl: "#",
+        // demoUrl: "#",
         githubUrl: "https://github.com/william67ww/PokemonUnity ",
     },
     {
@@ -17,8 +17,8 @@ const projects = [
         description: "A beautiful Corewar Game using Vm & C programming",
         image: "/projects/corewar.jpg",
         tags: ["C", "Algo  ", "Assembly", "Parsing"],
-        demoUrl: "#",
-        githubUrl: "#",
+        // demoUrl: "#",
+        githubUrl: "https://github.com/william67ww/Corewar",
     },
     {
         id: 3,
@@ -55,7 +55,7 @@ export const ProjectsSection = () => {
                             </p>
                             <div className="flex justify-between items-center">
                                 <div className="flex space-x-3">
-                                    <a className="text-foreground/80 hover:text-primary transition-colors duration-300"><ExternalLink size={20} /></a>
+                                    <a className="text-foreground/80 hover:text-primary transition-colors duration-300"></a>
                                     <a href={project.githubUrl} target="_blank" className="text-foreground/80 hover:text-primary transition-colors duration-300"><Github size={20} /></a>
                                 </div>
                             </div>
