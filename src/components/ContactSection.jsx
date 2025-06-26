@@ -7,19 +7,20 @@ import { useState } from "react"
 export const ContactSection = () => {
     const { toast } = useToast()
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setIsSubmitting(true)
-        setTimeout(() => {
-            toast({
-                title: "Message Sent",
-                description: "Thank you for reaching out! I'll get back to you as soon as possible.",
-            })
-            setIsSubmitting(false)
-        }, 1500);
-    }
+    const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-    return <section className="py-24 px-4 relative bg-secondary/30" id ="contact">
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleMailto = (e) => {
+        e.preventDefault();
+        const subject = encodeURIComponent("Contact from Portfolio - " + form.name);
+        const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
+        window.location.href = `mailto:william.wagner@epitech.eu?subject=${subject}&body=${body}`;
+    };
+
+    return <section className="py-24 px-4 relative bg-secondary/30" id="contact">
         <div className="container mx-auto max-w-5xl">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">Get In <span className="text-primary">Touch</span></h2>
             <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto ">
@@ -81,29 +82,35 @@ export const ContactSection = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-card p-8 rounded-lg shadow-xs" onSubmit={handleSubmit}>
+                <div className="bg-card p-8 rounded-lg shadow-xs">
                     <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
-                    <form className="space-y-6">
+                    <form className="space-y-6" onSubmit={handleMailto}>
                         <div>
                             <label htmlFor="name" className=" block text-sm font-medium mb-2">
                                 Your Name
                             </label>
-                            <input type="text" id="name" name="name" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary" placeholder="John White..." />
+                            <input type="text" id="name" name="name" required value={form.name} onChange={handleChange}
+                                className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
+                                placeholder="John White..." />
                         </div>
                         <div>
                             <label htmlFor="email" className=" block text-sm font-medium mb-2">
                                 Your Email
                             </label>
-                            <input type="email" id="email" name="email" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary" placeholder="john@gmail.com" />
+                            <input type="email" id="email" name="email" required value={form.email} onChange={handleChange}
+                                className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary"
+                                placeholder="john@gmail.com" />
                         </div>
                         <div>
                             <label htmlFor="message" className=" block text-sm font-medium mb-2">
                                 Your Message
                             </label>
-                            <textarea id="message" name="message" required className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-none" placeholder="Hey, I really like your work! Are you available to talk about a web project?" />
+                            <textarea id="message" name="message" required value={form.message} onChange={handleChange}
+                                className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden focus:ring-2 focus:ring-primary resize-none"
+                                placeholder="Hey, I really like your work! Are you available to talk about a web project?" />
                         </div>
-                        <button className={cn("cosmic-button w-full flex items-center justify-center gap-2", "")} disabled={isSubmitting} type="submit">
-                            {isSubmitting ? "Sending..." : "Send Message"}
+                        <button className={cn("cosmic-button w-full flex items-center justify-center gap-2", "")} type="submit">
+                            Send Message
                             <SendIcon size={16} />
                         </button>
                     </form>
